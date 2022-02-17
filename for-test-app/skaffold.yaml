@@ -1,0 +1,12 @@
+apiVersion: skaffold/v2beta7
+kind: Config
+build:
+  artifacts:
+    - image: for-test-app
+      context: ./
+  googleCloudBuild:
+    projectId: devops-labs-322408
+deploy:
+  kubectl:
+    manifests:
+      - kubernetes/*

@@ -1,0 +1,46 @@
+#listing all pipelines with targets
+gcloud deploy delivery-pipelines list
+
+#describes specific pipeline
+gcloud deploy delivery-pipelines describe $PIPELINE_NAME --region=$REGION
+
+#describes ur gcloud deploy target
+gcloud deploy targets describe $TARGET_NAME --delivery-pipeline=$PIPELINE_NAME
+
+#creating gcloud deploy release, can use flag --to-target $TARGET_NAME
+gcloud deploy releases create $RELEASE_NAME --delivery-pipeline=$PIPELINE_NAME
+
+#current releases list
+gcloud deploy releases list --delivery-pipeline=$PIPELINE_NAME
+
+#rollouts list
+gcloud deploy rollouts list --delivery-pipeline=$PIPELINE_NAME --release=$RELEASE_NAME
+
+#rollback creates rollout to prev target, u can specify the same with rollout comand --to-target=$PREV_TARGET_NAME
+gcloud deploy targets rollback $TARGET_NAME --delivery-pipeline=$PIPELINE_NAME --release=$RELEASE_NAME --rollout-id=ROLLOUT_ID
+
+#promoting release to the next target in pipeline, if not included --to-target=$TARGET_NAME flag
+gcloud deploy releases promote --release=$RELEASE_NAME --delivery-pipeline=$PIPELINE_NAME
+
+#approval/reject of rollouts
+gcloud deploy rollouts approve/reject $ROLLOUT_NAME --delivery-pipeline=$PIPELINE_NAME --release=$RELEASE_NAME --region=$REGION
+
+#delete a delivery-pipeline (--force if had releses/rollouts)
+gcloud deploy delivery-pipelines delete $PIPELINE_NAME
+--------------------------------------------------------------
+#for SA CloudBuild iam's
+
+roles/cloudbuild.serviceAgent
+roles/clouddeploy.releaser
+roles/iam.serviceAccountUser
+roles/storage.objectViewer
+
+
+CLOUDBUILD_SA=(gcloud projects describe devops-labs-322408 \
+    --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
+--------------------------------------------------------------
+#for cb triggers import/export via cli
+gcloud beta builds triggers (import/export) --source=${HOME}/Desktop/exam/cb1.yaml
+--------------------------------------------------------------
+
+Source Repository Administrator role for mirroring repos (gh/bb)

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: for-test-app
+  namespace: deployment
+  labels:
+    app: for-test-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: for-test-app
+  template:
+    metadata:
+      labels:
+        app: for-test-app
+    spec:
+      containers:
+        - name: for-test-app
+          image: for-test-app

@@ -1,0 +1,10 @@
+apiVersion: deploy.cloud.google.com/v1beta1
+kind: DeliveryPipeline
+metadata:
+  name: dp
+description: delivery-pipeline
+serialPipeline:
+ stages:
+ - targetId: dev
+ - targetId: stage
+ - targetId: prod
